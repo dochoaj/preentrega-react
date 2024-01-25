@@ -106,7 +106,6 @@ const router = createBrowserRouter([
   },
 ]);
 
-
 const App = () => {
   const [appState, setAppState] = useState(initialState);
   
