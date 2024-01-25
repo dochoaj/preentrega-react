@@ -13,7 +13,7 @@ const initialState = {
           id: "1",
           name: "Coca Cola",
           price: 1500,
-          stock: 10,
+          stock: 0,
           imageUrl:
             "https://www.comercialescocia.cl/media/catalog/product/cache/bd39c428e033d025c961d90e67539ecb/6/0/60030002_2022-01-21_10_59_48.jpg",
         },
@@ -21,7 +21,7 @@ const initialState = {
           id: "2",
           name: "Fanta",
           price: 1400,
-          stock: 10,
+          stock: 1,
           imageUrl:
             "https://www.supermercadodiez.cl/image/cache/catalog/2023/ABRIL/fanta%20normal-500x500.jpg",
         },

@@ -15,10 +15,12 @@ const Product = (props) => {
       </div>
       <div className="product-info">
         <div className="product-price">
-          <span>{price}</span>
+          <span>${price}</span>
         </div>
         <div className="product-stock">
-          <span>{stock}</span>
+          {stock === 0 && <span>Sin disponibilidad</span>}
+          {stock === 1 && <span>{stock} disponible</span>}
+          {stock > 1 && <span>{stock} disponibles</span>}
         </div>
       </div>
     </div>
