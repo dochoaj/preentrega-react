@@ -1,0 +1,39 @@
+.product-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem;
+  background-color: #ffffff;
+  color: #000000;
+  margin-top: 12px;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.product-image {
+  margin-bottom: 4px;
+}
+
+.product-image > img {
+  height: 250px;
+  width: 250px;
+  object-fit: fill;
+}
+
+.product-category {
+  padding: 0.5rem;
+  display: flex;
+  margin-bottom: 4px;
+}
+
+.product-title  {
+  margin-bottom: 4px;
+}
+
+.product-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}

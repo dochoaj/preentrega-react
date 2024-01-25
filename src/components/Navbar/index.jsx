@@ -2,6 +2,7 @@ import "./styles.css";
 
 const Navbar = (props) => {
   const { categories, cart } = props;
+
   return (
     <nav className="navbar-container">
       <div className="navbar-brand">Brand</div>
