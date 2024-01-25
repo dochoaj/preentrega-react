@@ -1,12 +1,7 @@
-import "./App.css";
+import "../App.css";
 import { useState } from "react";
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-
-import ItemDetailContainer from "./containers/ItemDetailContainer";
-import ItemListContainer from "./containers/ItemListContainer";
+import Navbar from "../components/Navbar";
+import Product from "../components/Product";
 
 const initialState = {
   catalog: [
@@ -91,28 +86,38 @@ const initialState = {
   },
 };
 
-const router = createBrowserRouter([
-  {
-    path: "/", // /
-    element: <ItemListContainer />,
-  },
-  {
-    path: "/category/:id", //category/12312rsdf
-    element: <ItemListContainer />,
-  },
-  {
-    path: "/item/:id", //item/1231234wedf
-    element: <ItemDetailContainer />,
-  },
-]);
 
-
-const App = () => {
+const ItemListContainer = () => {
   const [appState, setAppState] = useState(initialState);
+  const categories = appState.catalog.map((category) => category.name);
+  const cart = appState.cart;
+
+  const products = appState.catalog.reduce((accum, current) => {
+    const productsWithCategory = current.products.map((product) => {
+      return { category: current.name, ...product };
+    });
+    return [...accum, ...productsWithCategory];
+  }, []);
+
   
+
   return (
-    <RouterProvider router={router} />
+    <>
+      <Navbar categories={categories} cart={cart} />
+      <div className="content">
+        {products.map((product) => (
+          <Product
+            key={product.id}
+            title={product.name}
+            image={product.imageUrl}
+            category={product.category}
+            price={product.price}
+            stock={product.stock}
+          />
+        ))}
+      </div>
+    </>
   );
 };
 
-export default App;
+export default ItemListContainer;
