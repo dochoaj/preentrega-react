@@ -1,12 +1,12 @@
-import "./App.css";
 import { useState } from "react";
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
+import AppStateContext from "./StateContext";
 import ItemDetailContainer from "./containers/ItemDetailContainer";
 import ItemListContainer from "./containers/ItemListContainer";
+import Layout from "./containers/Layout";
+
+import "./App.css";
 
 const initialState = {
   catalog: [
@@ -18,7 +18,7 @@ const initialState = {
           id: "1",
           name: "Coca Cola",
           price: 1500,
-          stock: 0,
+          stock: 3,
           imageUrl:
             "https://www.comercialescocia.cl/media/catalog/product/cache/bd39c428e033d025c961d90e67539ecb/6/0/60030002_2022-01-21_10_59_48.jpg",
         },
@@ -94,23 +94,42 @@ const initialState = {
 const router = createBrowserRouter([
   {
     path: "/", // /
-    element: <ItemListContainer />,
-  },
-  {
-    path: "/category/:id", //category/12312rsdf
-    element: <ItemListContainer />,
-  },
-  {
-    path: "/item/:id", //item/1231234wedf
-    element: <ItemDetailContainer />,
+    element: <Layout />,
+    children: [
+      {
+        path: "/",
+        element: <ItemListContainer />,
+        loader: () => {
+          return { category: null };
+        },
+      },
+      {
+        path: "/category/:id",
+        element: <ItemListContainer />,
+        loader: ({ params }) => {
+          const category = params.id;
+          return { category };
+        },
+      },
+      {
+        path: "/item/:id",
+        element: <ItemDetailContainer />,
+        loader: ({ params }) => {
+          const item = params.id;
+          return { item };
+        },
+      },
+    ],
   },
 ]);
 
 const App = () => {
   const [appState, setAppState] = useState(initialState);
-  
+
   return (
-    <RouterProvider router={router} />
+    <AppStateContext.Provider value={{ appState, setAppState }}>
+      <RouterProvider router={router} />
+    </AppStateContext.Provider>
   );
 };
 
